@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { Card } from "./Card";
 import { motion } from "framer-motion";
+import { useAuth } from "../contextApi/AuthContext";
 
 export const LandingPage = () => {
 
   const navigate = useNavigate();
+  const { token } = useAuth();
+  console.log("TOKEN FROM LANDING PAGE: " + token);
 
   const dashBoardNavigateHandler = () => {
     navigate("/dashboard");
