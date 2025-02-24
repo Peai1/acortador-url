@@ -1,6 +1,45 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "../api/api";
 
+interface MyShortUrl {
+  id: string;
+  shortUrl: string;
+  originalUrl: string;
+  createdDate: string;
+  clickCount: number;
+  username: string;
+}
+
+export const useFetchMyShortUrls = (token: string, onError: (error: unknown) => void) => {
+  return useQuery({
+    queryKey: ["my-short-urls"],
+    queryFn: async () => {
+      try {
+        return await api.get("/api/urls/myurls", {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: "Bearer " + token,
+          },
+        });
+      } catch (error) {
+        if (onError) {
+          onError(error);
+        }
+        throw error;
+      }
+    },
+    select: (data) => {
+      const sortedData = (data.data as MyShortUrl[]).sort(
+        (a, b) => new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
+      );
+      return sortedData;
+      ;
+    },
+    staleTime: 5000,
+  })
+};
+
 export const useFetchTotalClicks = (token: string, onError: (error: unknown) => void) => {
   return useQuery({
     queryKey: ["url-totalclick"],

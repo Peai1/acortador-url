@@ -2,18 +2,17 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoIosMenu } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
-// import { useStoreContext } from "../contextApi/ContextApi";
-
+import { useAuth } from "../contextApi/AuthContext";
 
 
 export const NavBar = () => {
   const navigate = useNavigate();
-  const [token, setToken] = useState(false);
+  const { token, setToken } = useAuth();
   const path = useLocation().pathname;
   const [navbarOpen, setNavbarOpen] = useState(false);
 
   const onLogOutHandler = () => {
-    //setToken(null);
+    setToken(null);
     localStorage.removeItem("JWT_TOKEN");
     navigate("/login");
   };

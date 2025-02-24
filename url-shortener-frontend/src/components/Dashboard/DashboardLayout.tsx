@@ -1,32 +1,24 @@
 import { useState } from "react";
 import { Graph } from "./Graph";
-import { dummyData } from "../../dummyData/data";
 import { useAuth } from "../../contextApi/AuthContext";
 import { useFetchMyShortUrls, useFetchTotalClicks } from "../../hooks/useQuery";
 import { ShortenPopUp } from "./ShortenPopUp";
 import { FaLink } from "react-icons/fa";
-import ShortenUrlList from "./ShortenUrlList";
+import { ShortenUrlList } from "./ShortenUrlList";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Loader";
 
 const DashboardLayout = () => {
-  // const refetch = false;
   const { token } = useAuth();
   const navigate = useNavigate();
   const [shortenPopUp, setShortenPopUp] = useState(false);
 
-  // console.log(useFetchTotalClicks(token, onError));
 
-  const {
-    isLoading,
-    data: myShortenUrls,
-    refetch,
-  } = useFetchMyShortUrls(token, onError);
+  // refetch is for refetching the data after creating a new short link
+  // which means we are updating the data in the dashboard
+  const { isLoading, data: myShortenUrls, refetch } = useFetchMyShortUrls(token, onError);
 
-  const { isLoading: loader, data: totalClicks } = useFetchTotalClicks(
-    token,
-    onError
-  );
+  const { isLoading: loader, data: totalClicks } = useFetchTotalClicks(token, onError);
 
   function onError() {
     navigate("/error");
@@ -39,7 +31,7 @@ const DashboardLayout = () => {
       ) : (
         <div className="lg:w-[90%] w-full mx-auto py-16">
           <div className=" h-96 relative ">
-            {dummyData.length === 0 && (
+            {totalClicks?.length === 0 && (
               <div className="absolute flex flex-col  justify-center sm:items-center items-end  w-full left-0 top-0 bottom-0 right-0 m-auto">
                 <h1 className=" text-slate-800 font-serif sm:text-2xl text-[18px] font-bold mb-1">
                   No Data For This Time Period
@@ -50,7 +42,7 @@ const DashboardLayout = () => {
                 </h3>
               </div>
             )}
-            <Graph graphData={dummyData} />
+            {totalClicks && <Graph graphData={totalClicks} />}
           </div>
           <div className="py-5 sm:text-end text-center">
             <button
@@ -62,7 +54,7 @@ const DashboardLayout = () => {
           </div>
 
           <div>
-            {!isLoading && myShortenUrls.length === 0 ? (
+            {!isLoading && myShortenUrls?.length === 0 ? (
               <div className="flex justify-center pt-16">
                 <div className="flex gap-2 items-center justify-center  py-6 sm:px-8 px-5 rounded-md   shadow-lg  bg-gray-50">
                   <h1 className="text-slate-800 font-montserrat   sm:text-[18px] text-[14px] font-semibold mb-1 ">
@@ -72,7 +64,7 @@ const DashboardLayout = () => {
                 </div>
               </div>
             ) : (
-              <ShortenUrlList data={myShortenUrls} />
+              <ShortenUrlList data={myShortenUrls || []} />
             )}
           </div>
         </div>

@@ -21,7 +21,6 @@ ChartJS.register(
 
 type GraphProps = {
   graphData: {
-    id: number; 
     clickDate: string; 
     count: number;
   }[];
@@ -35,14 +34,14 @@ export const Graph = ({ graphData }: GraphProps) => {
   const data = {
     labels:
       graphData.length > 0
-        ? labels
+        ? labels.reverse()
         : ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
     datasets: [
       {
         label: "Total Clicks",
         data:
           graphData.length > 0
-            ? userPerDaya
+            ? userPerDaya.reverse()
             : [1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1],
         backgroundColor:
           graphData.length > 0 ? "#3b82f6" : "rgba(54, 162, 235, 0.1)",
