@@ -6,14 +6,11 @@ function Loader() {
         <div className="flex flex-col items-center gap-1">
         <RotatingLines
             visible={true}
-            height="65"
             width="65"
-            color="red"
+            strokeColor="red"
             strokeWidth="5"
             animationDuration="0.75"
             ariaLabel="rotating-lines-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
             />
         </div>
     </div>

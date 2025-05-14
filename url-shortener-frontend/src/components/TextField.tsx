@@ -10,7 +10,6 @@ const TextField = ({
   message,
   className = "",
   min,
-  value,
   placeholder,
 }: {
   label: string;

@@ -7,6 +7,7 @@ import com.url.shortener.models.UrlMapping;
 import com.url.shortener.models.User;
 import com.url.shortener.repository.ClickEventRepository;
 import com.url.shortener.repository.UrlMappingRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -102,5 +103,13 @@ public class UrlMappingService {
             clickEventRepository.save(clickEvent);
         }
         return urlMapping;
+    }
+
+    @Transactional
+    public void deleteByShortUrlAndId(String shortUrl, User user) {
+        UrlMapping urlMapping = urlMappingRepository.findByShortUrlAndUser(shortUrl, user);
+        if (urlMapping != null && urlMapping.getUser().getId() == user.getId()) {
+            urlMappingRepository.deleteByShortUrlAndId(shortUrl, user.getId());
+        }
     }
 }

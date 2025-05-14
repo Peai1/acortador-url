@@ -10,5 +10,5 @@ export const ShortenUrlPage = () => {
     }
   }, [url])
 
-  return null
+  return <p>Redirecting...</p>
 }

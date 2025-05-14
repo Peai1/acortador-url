@@ -12,22 +12,25 @@ import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "./components/ErrorPage";
 
 export const AppRouter = () => {
+  const hideHeaderFooter = location.pathname.startsWith("/s");
+
   return (
     <>
-      <NavBar />
+      {!hideHeaderFooter && <NavBar />}
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="/about" element={<AboutPage />}></Route>
+        <Route path="/s/:url" element={<ShortenUrlPage />}></Route>
 
-        <Route path="/register" element={ <PrivateRoute publicPage={false}> <RegisterPage /> </PrivateRoute>}></Route>
-        <Route path="/login" element={ <PrivateRoute publicPage={false}> <Login /> </PrivateRoute>}></Route>
+        <Route path="/register" element={ <PrivateRoute publicPage={true}> <RegisterPage /> </PrivateRoute>}></Route>
+        <Route path="/login" element={ <PrivateRoute publicPage={true}> <Login /> </PrivateRoute>}></Route>
 
         <Route path="/dashboard" element={ <PrivateRoute publicPage={false}> <DashboardLayout /> </PrivateRoute>}></Route>
 
         <Route path="/error" element={<ErrorPage message="ERROR"/>} />
         <Route path="*" element={<ErrorPage message="The page you're looking for doesn't exists"/>} />
       </Routes>
-      <Footer />
+      {!hideHeaderFooter && <Footer />}
     </>
   );
 };

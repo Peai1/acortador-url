@@ -34,18 +34,18 @@ export const CreateNewShorten = ({ setOpen, refetch }: { setOpen: (open: boolean
         },
       });
 
-      const shortenUrl = `${import.meta.env.VITE_REACT_SUBDOMAIN}/${res.data.shortUrl}`;
+      await refetch();
+      setOpen(false);
+      reset();
+
+      const shortenUrl = `${import.meta.env.VITE_REACT_FRONT_END_URL}/s/${res.data.shortUrl}`;
       navigator.clipboard.writeText(shortenUrl).then(() => {
-        toast.success("Short URL Copied to Clipboard", {
+        toast.success("Link corto copiado con éxito", {
           position: "bottom-center",
           className: "mb-5",
           duration: 3000,
         });
       });
-
-      await refetch();
-      reset();
-      setOpen(false);
     } catch (error) {
       toast.error("Create ShortURL Failed");
     } finally {
@@ -60,19 +60,19 @@ export const CreateNewShorten = ({ setOpen, refetch }: { setOpen: (open: boolean
         className="sm:w-[450px] w-[360px] relative shadow-custom pt-8 pb-5 sm:px-8 px-4 rounded-lg"
       >
         <h1 className="font-montserrat sm:mt-0 mt-3 text-center  font-bold sm:text-2xl text-[22px] text-slate-800 ">
-          Create New Shorten Url
+          Crea un nuevo link corto
         </h1>
 
         <hr className="mt-2 sm:mb-5 mb-3 text-slate-950" />
 
         <div>
           <TextField
-            label="Enter URL"
+            label="Ingresa URL"
             required
             id="originalUrl"
             placeholder="https://example.com"
             type="url"
-            message="Url is required"
+            message="La Url es requerida"
             register={register}
             errors={errors}
           />
@@ -82,11 +82,11 @@ export const CreateNewShorten = ({ setOpen, refetch }: { setOpen: (open: boolean
           className="bg-customRed font-semibold text-white w-32  bg-custom-gradient  py-2  transition-colors  rounded-md my-3"
           type="submit"
         >
-          {loading ? "Loading..." : "Create"}
+          {loading ? "Cargando..." : "Crear"}
         </button>
 
         {!loading && (
-          <Tooltip title="Close">
+          <Tooltip title="Cerrar">
             <button
               disabled={loading}
               onClick={() => setOpen(false)}

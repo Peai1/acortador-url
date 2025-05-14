@@ -38,7 +38,7 @@ export const Graph = ({ graphData }: GraphProps) => {
         : ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
     datasets: [
       {
-        label: "Total Clicks",
+        label: "Total de Clicks",
         data:
           graphData.length > 0
             ? userPerDaya.reverse()
@@ -78,7 +78,7 @@ export const Graph = ({ graphData }: GraphProps) => {
         },
         title: {
           display: true,
-          text: "Number Of Clicks",
+          text: "Número de clicks",
           font: {
             family: "Arial",
             size: 16,
@@ -94,7 +94,7 @@ export const Graph = ({ graphData }: GraphProps) => {
         // },
         title: {
           display: true,
-          text: "Date",
+          text: "Fecha",
           font: {
             family: "Arial",
             size: 16,

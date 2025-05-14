@@ -3,30 +3,31 @@ import { FaLink, FaShareAlt, FaEdit, FaChartLine } from "react-icons/fa";
 export const AboutPage = () => {
   return (
     <div className="lg:px-14 sm:px-8 px-5 min-h-[calc(100vh-64px)] pt-2">
-      <div className="bg-white w-full sm:py-10 py-8  ">
+      <div className="bg-white w-full sm:py-10 py-8 flex justify-center items-center flex-col">
         <h1 className="sm:text-4xl text-slate-800 text-3xl font-bold italic  mb-3">
-          About Linklytics
+          Acerca de Linklytics
         </h1>
         <p className="text-gray-700 text-sm  mb-8 xl:w-[60%] lg:w-[70%] sm:w-[80%] w-full ">
-          Linklytics simplifies URL shortening for efficient sharing. Easily
-          generate, manage, and track your shortened links. Linklytics simplifies
-          URL shortening for efficient sharing. Easily generate, manage, and
-          track your shortened links. Linklytics simplifies URL shortening for
-          efficient sharing. Easily generate, manage, and track your shortened
-          links. Linklytics simplifies URL shortening for efficient sharing.
-          Easily generate, manage, and track your shortened links.
+          Linklytics simplifica el acortamiento de URL para un intercambio eficiente. 
+          Genera, gestiona y rastrea fácilmente tus enlaces acortados. Linklytics 
+          simplifica el acortamiento de URL para un intercambio eficiente. Genera, 
+          gestiona y rastrea fácilmente tus enlaces acortados. Linklytics simplifica 
+          el acortamiento de URL para un intercambio eficiente. Genera, gestiona y 
+          rastrea fácilmente tus enlaces acortados. Linklytics simplifica el acortamiento 
+          de URL para un intercambio eficiente. Genera, gestiona y rastrea fácilmente 
+          tus enlaces acortados.
         </p>
         <div className="space-y-5 xl:w-[60%] lg:w-[70%] sm:w-[80%] w-full ">
           <div className="flex items-start">
             <FaLink className="text-blue-500 text-3xl mr-4" />
             <div>
               <h2 className="sm:text-2xl font-bold text-slate-800">
-                Simple URL Shortening
+                Acortamiento de URL sencillo
               </h2>
               <p className="text-gray-600">
-                Experience the ease of creating short, memorable URLs in just a
-                few clicks. Our intuitive interface and quick setup process
-                ensure you can start shortening URLs without any hassle.
+                Experimenta la facilidad de crear URL cortas y memorables en solo 
+                unos clics. Nuestra interfaz intuitiva y proceso de configuración 
+                rápida garantizan que puedas comenzar a acortar URL sin complicaciones.
               </p>
             </div>
           </div>
@@ -34,12 +35,12 @@ export const AboutPage = () => {
             <FaShareAlt className="text-green-500 text-3xl mr-4" />
             <div>
               <h2 className="sm:text-2xl font-bold text-slate-800">
-                Powerful Analytics
+                Analítica potente
               </h2>
               <p className="text-gray-600">
-                Gain insights into your link performance with our comprehensive
-                analytics dashboard. Track clicks, geographical data, and
-                referral sources to optimize your marketing strategies.
+                Obtén información sobre el rendimiento de tus enlaces con nuestro 
+                completo panel de análisis. Rastrea clics, datos geográficos y fuentes 
+                de referencia para optimizar tus estrategias de marketing.
               </p>
             </div>
           </div>
@@ -47,12 +48,12 @@ export const AboutPage = () => {
             <FaEdit className="text-purple-500 text-3xl mr-4" />
             <div>
               <h2 className="sm:text-2xl font-bold text-slate-800">
-                Enhanced Security
+                Seguridad mejorada
               </h2>
               <p className="text-gray-600">
-                Rest assured with our robust security measures. All shortened
-                URLs are protected with advanced encryption, ensuring your data
-                remains safe and secure.
+                Ten la tranquilidad de contar con nuestras sólidas medidas de seguridad. 
+                Todas las URL acortadas están protegidas con cifrado avanzado, garantizando 
+                que tus datos permanezcan seguros.
               </p>
             </div>
           </div>
@@ -60,12 +61,12 @@ export const AboutPage = () => {
             <FaChartLine className="text-red-500 text-3xl mr-4" />
             <div>
               <h2 className="sm:text-2xl font-bold text-slate-800">
-                Fast and Reliable
+                Rápido y confiable
               </h2>
               <p className="text-gray-600">
-                Enjoy lightning-fast redirects and high uptime with our reliable
-                infrastructure. Your shortened URLs will always be available and
-                responsive, ensuring a seamless experience for your users.
+                Disfruta de redirecciones ultrarrápidas y alta disponibilidad con nuestra 
+                infraestructura confiable. Tus URL acortadas siempre estarán disponibles y 
+                receptivas, garantizando una experiencia fluida para tus usuarios.
               </p>
             </div>
           </div>

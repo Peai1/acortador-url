@@ -51,30 +51,30 @@ export const Login = () => {
         className="sm:w-[450px] w-[360px]  shadow-custom py-8 sm:px-8 px-4 rounded-md"
       >
         <h1 className="text-center font-serif text-btnColor font-bold lg:text-3xl text-2xl">
-          Enter your credentials
+          Ingrese sus credenciales
         </h1>
 
         <hr className="mt-2 mb-5 text-black" />
 
         <div className="flex flex-col gap-3">
           <TextField
-            label="Username"
+            label="Nombre de Usuario"
             required
             id="username"
             type="text"
-            message="*Username is required"
-            placeholder="Type your username"
+            message="*El nombre de usuario es requerido"
+            placeholder="Ingrese su nombre de usuario"
             register={register}
             errors={errors}
           />
 
           <TextField
-            label="Password"
+            label="Contraseña"
             required
             id="password"
             type="password"
-            message="*Password is required"
-            placeholder="Type your password"
+            message="*La contraseña es requerida"
+            placeholder="Ingrese contraseña"
             register={register}
             min={6}
             errors={errors}
@@ -86,16 +86,16 @@ export const Login = () => {
           type="submit"
           className="bg-customRed font-semibold text-white  bg-custom-gradient w-full py-2 hover:text-slate-400 transition-colors duration-100 rounded-sm my-3"
         >
-          {loader ? "Loading..." : "Login"}
+          {loader ? "Cargando..." : "Ingresar"}
         </button>
 
         <p className="text-center text-sm text-slate-700 mt-6">
-          Don't have an account?
+          ¿No tiene una cuenta?
           <Link
             className="font-semibold underline hover:text-black ml-1"
             to="/register"
           >
-            <span className="text-btnColor">Register</span>
+            <button className="text-btnColor rounded-md w-25 font-semibold px-2 py-1 ml-1 outline-1">Registrarse</button>
           </Link>
         </p>
       </form>

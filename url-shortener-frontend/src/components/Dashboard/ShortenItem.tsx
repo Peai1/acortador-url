@@ -4,21 +4,24 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import { FaExternalLinkAlt, FaRegCalendarAlt } from "react-icons/fa";
 import { IoCopy } from "react-icons/io5";
 import { LiaCheckSolid } from "react-icons/lia";
-import { MdAnalytics, MdOutlineAdsClick } from "react-icons/md";
+import { MdAnalytics, MdOutlineAdsClick, MdDelete } from "react-icons/md";
 import api from "../../api/api";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contextApi/AuthContext";
 import { Hourglass } from "react-loader-spinner";
 import { Graph } from "./Graph";
+import toast from "react-hot-toast";
 
 type ShortenItemProps = {
   originalUrl: string;
   shortUrl: string;
   clickCount: number;
   createdDate: string;
+  refetch: () => void;
+  clicksRefetch: () => void;
 };
 
-export const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate } : ShortenItemProps) => {
+export const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate, refetch, clicksRefetch } : ShortenItemProps) => {
   const { token } = useAuth();
   const navigate = useNavigate();
   const [isCopied, setIsCopied] = useState(false);
@@ -27,7 +30,7 @@ export const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate } :
   const [selectedUrl, setSelectedUrl] = useState("");
   const [analyticsData, setAnalyticsData] = useState([]);
 
-  const subDomain = import.meta.env.VITE_REACT_SUBDOMAIN.replace(
+  const subDomain = import.meta.env.VITE_REACT_FRONT_END_URL.replace(
     /^https?:\/\//,
     ""
   );
@@ -38,6 +41,23 @@ export const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate } :
     }
     setAnalyticToggle(!analyticToggle);
   };
+
+  const deleteUrl = async (shortUrl: string) => {
+    try {
+      await api.delete(`/api/urls/${shortUrl}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        },
+      });
+      clicksRefetch();
+      toast.success("Short URL Deleted Successfully");
+      refetch();
+    } catch (error) {
+      navigate("/error");
+    }
+  }
 
   const fetchMyShortUrl = async () => {
     setLoader(true);
@@ -78,26 +98,19 @@ export const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate } :
       >
         <div className="flex-1 sm:space-y-1 max-w-full overflow-x-auto overflow-y-hidden ">
           <div className="text-slate-900 pb-1 sm:pb-0   flex items-center gap-2 ">
-            {/* <a href={`${import.meta.env.VITE_REACT_SUBDOMAIN}/${shortUrl}`}
-                target="_blank"
-                className=" text-[17px]  font-montserrat font-[600] text-linkColor ">
-                {subDomain + "/" + `${shortUrl}`}
-            </a> */}
-
             <Link
               target="_"
               className="text-[17px]  font-montserrat font-[600] text-linkColor"
-              to={
-                import.meta.env.VITE_REACT_SUBDOMAIN + `/${shortUrl}`
-              }
+              to={import.meta.env.VITE_REACT_FRONT_END_URL + "/s/" + `${shortUrl}`}
+              onClick={() => refetch()}
             >
-              {subDomain + "/" + `${shortUrl}`}
+              {subDomain + "/s/" + `${shortUrl}`}
             </Link>
             <FaExternalLinkAlt className="text-linkColor" />
           </div>
 
           <div className="flex items-center gap-1 ">
-            <h3 className=" text-slate-700 font-[400] text-[17px] ">
+            <h3 className=" text-slate-700 font-[400] text-[17px] font-weight-700">
               {originalUrl}
             </h3>
           </div>
@@ -127,10 +140,10 @@ export const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate } :
         <div className="flex flex-1 sm:justify-end items-center gap-4">
           <CopyToClipboard
             onCopy={() => setIsCopied(true)}
-            text={`${import.meta.env.VITE_REACT_SUBDOMAIN + "/" + `${shortUrl}`}`}
+            text={`${import.meta.env.VITE_REACT_FRONT_END_URL + "/s" + `${shortUrl}`}`}
           >
           <div className="flex cursor-pointer gap-1 items-center bg-[#3364F7] py-2  font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white ">
-              <button className="">{isCopied ? "Copied" : "Copy"}</button>
+              <button className="">{isCopied ? "Copiado" : "Copiar"}</button>
               {isCopied ? (
                 <LiaCheckSolid className="text-md" />
               ) : (
@@ -141,11 +154,20 @@ export const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate } :
 
           <div
             onClick={() => analyticsHandler(shortUrl)}
-            className="flex cursor-pointer gap-1 items-center bg-rose-700 py-2 font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white "
+            className="flex cursor-pointer gap-1 items-center bg-green-700 py-2 font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white "
           >
-            <button>Analytics</button>
+            <button>Análisis</button>
             <MdAnalytics className="text-md" />
           </div>
+
+          <div
+            onClick={() => deleteUrl(shortUrl)}
+            className="flex cursor-pointer gap-1 items-center bg-red-700 py-2 font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white "
+          >
+            <button>Eliminar</button>
+            <MdDelete className="text-md" />
+          </div>
+
         </div>
       </div>
       <React.Fragment>
@@ -166,7 +188,7 @@ export const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate } :
                   wrapperClass=""
                   colors={["#306cce", "#72a1ed"]}
                 />
-                <p className="text-slate-700">Please Wait...</p>
+                <p className="text-slate-700">Por favor espere...</p>
               </div>
             </div>
           ) : (
@@ -174,11 +196,10 @@ export const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate } :
               {analyticsData.length === 0 && (
                 <div className="absolute flex flex-col  justify-center sm:items-center items-end  w-full left-0 top-0 bottom-0 right-0 m-auto">
                   <h1 className=" text-slate-800 font-serif sm:text-2xl text-[15px] font-bold mb-1">
-                    No Data For This Time Period
+                    No existe información para este periodo de tiempo
                   </h1>
                   <h3 className="sm:w-96 w-[90%] sm:ml-0 pl-6 text-center sm:text-lg text-[12px] text-slate-600 ">
-                    Share your short link to view where your engagements are
-                    coming from
+                    Comparte tu link corto para ver de dónde provienen tus interacciones.
                   </h3>
                 </div>
               )}

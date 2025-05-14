@@ -45,19 +45,19 @@ export const RegisterPage = () => {
         className="sm:w-[450px] w-[360px]  shadow-custom py-8 sm:px-8 px-4 rounded-md"
       >
         <h1 className="text-center font-serif text-btnColor font-bold lg:text-3xl text-2xl">
-          Register Here
+          Registrese en Linklytics
         </h1>
 
         <hr className="mt-2 mb-5 text-black" />
 
         <div className="flex flex-col gap-3">
           <TextField
-            label="Username"
+            label="Nombre de Usuario"
             required
             id="username"
             type="text"
-            message="*Username is required"
-            placeholder="Type your username"
+            message="*El nombre de usuario es requerido"
+            placeholder="Ingrese su nombre de usuario"
             register={register}
             errors={errors}
           />
@@ -67,19 +67,19 @@ export const RegisterPage = () => {
             required
             id="email"
             type="email"
-            message="*Email is required"
-            placeholder="Type your email"
+            message="*El email es requerido"
+            placeholder="Ingrese su email"
             register={register}
             errors={errors}
           />
 
           <TextField
-            label="Password"
+            label="Contraseña"
             required
             id="password"
             type="password"
-            message="*Password is required"
-            placeholder="Type your password"
+            message="*La contraseña es requerida"
+            placeholder="Ingrese contraseña"
             register={register}
             min={6}
             errors={errors}
@@ -91,16 +91,16 @@ export const RegisterPage = () => {
           type="submit"
           className="bg-customRed font-semibold text-white  bg-custom-gradient w-full py-2 hover:text-slate-400 transition-colors duration-100 rounded-sm my-3"
         >
-          {loader ? "Loading..." : "Register"}
+          {loader ? "Cargando..." : "Registrarse"}
         </button>
 
         <p className="text-center text-sm text-slate-700 mt-6">
-          Already have an account?
+          ¿Ya tiene una cuenta?
           <Link
             className="font-semibold underline hover:text-black ml-1"
             to="/login"
           >
-            <span className="text-btnColor">Login</span>
+            <button className="text-btnColor rounded-md w-25 font-semiboldpx-2 py-1 ml-1 outline-1">Iniciar Sesión</button>
           </Link>
         </p>
       </form>
